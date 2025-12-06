@@ -25,4 +25,4 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           localDir: "."
           remoteDir: ${{ secrets.FTP_PATH }}
-          forceSsl: false
+          forceSsl: true
