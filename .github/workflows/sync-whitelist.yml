@@ -3,16 +3,21 @@ name: Upload AllowList to Nitrado
 on:
   push:
     paths:
-      - "AllowList.cfg"
+      - "Testmap/Testmap"
 
 jobs:
   upload:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Upload via FTP
+      - name: Rename your file to AllowList.cfg
+        run: |
+          cp Testmap/Testmap AllowList.cfg
+
+      - name: Upload AllowList.cfg to Nitrado FTP
         uses: sebastianpopp/ftp-action@v2
         with:
           host: ${{ secrets.FTP_HOST }}
@@ -21,6 +26,3 @@ jobs:
           localDir: "."
           remoteDir: ${{ secrets.FTP_PATH }}
           forceSsl: false
-
-      - name: Confirm upload
-        run: echo "Whitelist synced to Nitrado!"
